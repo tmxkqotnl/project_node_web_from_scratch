@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- 프레임 잡히면 모듈화@@@@@@@@@@@@@@@ -->
 <html>
   <!-- Layout header -->
   <head>
@@ -8,8 +9,8 @@
     <!-- LINK CSS -->
     <link rel="stylesheet" href="style.css" />
     <!-- SCRIPT JQUERY, CUSTOM JS -->
-    <script src=""></script>
-    <script src=""></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="script.js"></script>
   </head>
   <body>
     <div class="container">
@@ -56,14 +57,14 @@
       </nav>
 
       <div class="content">
-        {% if target or log  %}
+        {% if target or log or post %}
           {% block content %} 
           {% endblock %} 
         {% else %}
           {% include "content-list.html" %}
         {% endif %}
       </div>
-      <div class="none"></div>
+
     </div>
     <footer>
       <div class="made-by">

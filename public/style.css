@@ -120,15 +120,16 @@ footer{
   top:50%;
   left:50%;
   transform: translate(-50%,-50%);
-  
 }
 /* ################ CONTENT SECTION ################ */
 
 .content{
+  position: relative;
   width: 800px;
   border:1px solid black;
   margin:0 auto;
   margin-bottom:var(--footer-height);
+  padding-bottom: 30px;
 }
 .h1-content{
   font-size: 3em;
@@ -142,13 +143,29 @@ footer{
 .hr-content{
   border:none;
   margin:0 auto;
-  width: 70%;
+  width: 50%;
   height: 2px;
   background-color: #000;
   margin: 20px auto;
 }
 .p-content{
   margin: 0 20px 20px 20px;
+}
+.btn-delete{
+  position:absolute;
+  right:20px;
+  top:20px;
+  color:gray;
+  cursor:pointer;
+}
+.btn-delete::before{
+  font-size: 1.3em;
+  font-family: fontawesome;
+  content:'\f014';
+  
+}
+.btn-delete:hover{
+  color:#222;
 }
 
 

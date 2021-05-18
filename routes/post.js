@@ -8,7 +8,7 @@ router.use((req,res,next)=>{
   next();
 });
 router.get('/',isLoggedIn,(req,res)=>{
-  res.render('post',{title:"posting", session:req.session});
+  res.render('post',{title:"posting", session:req.session, post:"y"});
 });
 router.post('/',checkContent,isLoggedIn,(req,res)=>{
   const title = req.body.title;

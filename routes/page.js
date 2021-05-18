@@ -60,7 +60,14 @@ router.get('/content', (req,res,next)=>{
       res.redirect('/');
     }    
   });
-  
 });
+router.post('/del',(req,res,next)=>{
+  Article.findByIdAndDelete(req.query.id, (err,doc)=>{
+    if(err) return next(err);
+    
+    console.log('document deleted');
+    res.send({sign:"ok"});
+  });
+})
 
 module.exports = router;
