@@ -1,0 +1,12 @@
+{% for article in articles %}
+<a href = "/content?id={{article._id}}">
+  <div class="article">
+    <h2>{{article.title}}</h2>
+    <p>
+      {{article.body}}
+      <span>{{article.date}}</span>
+    </p>
+    
+  </div>
+</a>
+{% endfor %}

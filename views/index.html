@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <!-- Layout header -->
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{title}}</title>
+    <!-- LINK CSS -->
+    <link rel="stylesheet" href="style.css" />
+    <!-- SCRIPT JQUERY, CUSTOM JS -->
+    <script src=""></script>
+    <script src=""></script>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="nav-heading">
+          <form action="/search" method="get" class="form-search">
+            <input type="text" name="text-search" id="text-search" />
+            <input type="submit" value="send" />
+          </form>
+          <em>NODEWEB</em>
+          <div class="tag">
+            <span><a href="/" id="home">홈</a></span>
+            {% if session.passport %}
+            <span><a href="/logout" id="logout">로그아웃</a></span>
+            <span><a href="/post" id="posting">포스팅</a></span>
+            {% else %}
+            <span><a href="/login" id="login">로그인</a></span>
+            {% endif %}
+          </div>
+        </div>
+        <div class="profile">
+          <div class="img-frame">
+            <img src="img/impostor2.png" />
+          </div>
+          <hr class="hr-heading" />
+          <p class="profile-descript">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi
+            placeat quod eum voluptatum veritatis saepe ratione voluptatem
+            recusandae, consequuntur maiores aut porro! Doloremque, sunt. Error
+            libero alias deserunt obcaecati eos.
+          </p>
+        </div>
+      </header>
+      <nav>
+        <div class="navi">
+          <ul>
+            <h3>여기에 리스트가 있음</h3>
+            {% if items %} {% for item in items %}
+            <a href="{{item.title}}"><li>{{item.title}}({{item.count}})</li></a>
+            {% endfor %} {% endif %}
+            <a href="/post"><li>POST</li></a>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="content">
+        {% if target or log  %}
+          {% block content %} 
+          {% endblock %} 
+        {% else %}
+          {% include "content-list.html" %}
+        {% endif %}
+      </div>
+    </div>
+    <footer>
+      <div class="made-by">
+        <span>made by - tmxkqotnl</span>
+      </div>
+    </footer>
+  </body>
+</html>
