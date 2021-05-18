@@ -2,6 +2,9 @@
 @import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap');
 
+:root{
+  --footer-height:50px;
+}
 body{
   font-family: 'Noto Sans KR', sans-serif;
   font-weight: 500;
@@ -102,9 +105,10 @@ nav{
 
 /* ################ FOOTER SECTION ################ */
 footer{
-  position:absolute;
+  display:none;
+  position:fixed;
   bottom:0;
-  height: 50px;
+  height: var(--footer-height);
   width: 100%;
   background-color: #111;
 }
@@ -122,10 +126,31 @@ footer{
 
 .content{
   width: 800px;
-  height: 300px;
   border:1px solid black;
   margin:0 auto;
+  margin-bottom:var(--footer-height);
 }
+.h1-content{
+  font-size: 3em;
+  margin:10px 0 0 30px;
+}
+.span-content{
+  display:inline-block;
+  margin: -5px 0 0 40px;
+  color:gray;
+}
+.hr-content{
+  border:none;
+  margin:0 auto;
+  width: 70%;
+  height: 2px;
+  background-color: #000;
+  margin: 20px auto;
+}
+.p-content{
+  margin: 0 20px 20px 20px;
+}
+
 
 /* ################ LOGIN SECTION ################ */
 .login{
@@ -160,6 +185,7 @@ footer{
   position:relative;
   padding:30px;
   box-sizing: border-box;
+  margin:10px auto;
 }
 .article h2{
   width: 750px;

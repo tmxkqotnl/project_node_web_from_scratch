@@ -25,7 +25,6 @@ router.post('/',checkContent,isLoggedIn,(req,res)=>{
     console.err(err);
     res.render('error',{message:err.message});
   });
-  
 });
 
 
