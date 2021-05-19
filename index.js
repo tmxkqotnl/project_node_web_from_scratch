@@ -11,17 +11,19 @@ const {User} = require('./models/user');
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
 const passportindex = require('./passport');
+const {MONGO_URI} = require('./config/key');
 
 dotenv.config(); // dotenv config must be top level of code
 passportindex();
+
 app.set('port',process.env.PORT||8001);  // set port 
 app.set('view engine', 'html'); // set view option
 nunjucks.configure('views', { // set nunjuecks
   express:app,
   watch:true,
 });
-app.use('/',express.static(path.join(__dirname,"public"))); // set static folder
-app.use('/img',express.static(path.join(__dirname,"public/img")));
+app.use('/',express.static(path.join(__dirname,"public"))); // set dir for static files
+app.use('/img',express.static(path.join(__dirname,"public/img"))); // set dir for images
 app.use(process.env.NODE_ENV === "dev" ? morgan('dev') : morgan('combined')); // set morgan
 app.use(express.urlencoded({extended:true})); // set urlEncoding
 app.use(cookieParser(process.env.COOKIE_SECRET)); // set cookie-parser
@@ -36,7 +38,7 @@ app.use(session({
 })); // set session
 
 // set mongoose
-mongoose.connect(`mongodb+srv://Admin:${process.env.MONGO_PASSWORD}@mongodbtutorial.5lxlo.mongodb.net/nodeWeb?retryWrites=true&w=majority`,{
+mongoose.connect(MONGO_URI,{
   useCreateIndex:true,
   useFindAndModify:false,
   useUnifiedTopology:true,
@@ -44,9 +46,9 @@ mongoose.connect(`mongodb+srv://Admin:${process.env.MONGO_PASSWORD}@mongodbtutor
 },()=>{
   console.log("Atlas is connected");
   User.findOne({id:"admin"},(err,user)=>{
-    if(err) {
-      console.error(err);
-      return; // 처리좀..
+    if(err) { 
+      console.error(err); 
+      return new Error('DB error'); 
     }
 
     if(!user){
@@ -58,6 +60,7 @@ mongoose.connect(`mongodb+srv://Admin:${process.env.MONGO_PASSWORD}@mongodbtutor
         console.log('admin initialized');
       }).catch(err=>{
         console.error(err);
+        return new Error('admin init error'); 
       });
     }else{
       console.log('admin is already initialized');
@@ -74,7 +77,7 @@ const postRouter = require('./routes/post');
 app.use('/',indexRouter);
 app.use('/post',postRouter);
 
-// 404 error(?) handler
+// 404 handler
 app.use((req,res,next)=>{
   const error = new Error(`Cannot Handle ${req.url}`);
   res.status(404);
@@ -84,11 +87,10 @@ app.use((req,res,next)=>{
 app.use('/',(err,req,res,next)=>{
   res.status(err.status || 500);
   console.log(err.message);
-  res.render('error',{message:"예상치 못한 오류가 발생했습니다.",title:"ERROR MESSAGE"});
+  res.render('error',{message:"예상치 못한 오류가 발생했습니다.",title:"ERROR"});
 });
 
 // listening @@
 app.listen(app.get('port'),()=>{
-  console.log("port number "+app.get('port')+" Waiting");
+  console.log("Listening port on "+app.get('port'));
 });
-
