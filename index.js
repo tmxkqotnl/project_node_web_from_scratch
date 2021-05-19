@@ -1,17 +1,20 @@
 const express = require('express');
+const session = require('express-session');
 const app = express();
 const dotenv = require('dotenv');
-const morgan = require('morgan');
-const cookieParser = require('cookie-parser');
-const mongoose = require('mongoose');
-const nunjucks = require('nunjucks');
-const path = require('path');
-const session = require('express-session');
-const {User} = require('./models/user');
+
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
 const passportindex = require('./passport');
+
+const mongoose = require('mongoose');
 const {MONGO_URI} = require('./config/key');
+const {User} = require('./models/user');
+
+const cookieParser = require('cookie-parser');
+const nunjucks = require('nunjucks');
+const path = require('path');
+const morgan = require('morgan');
 
 dotenv.config(); // dotenv config must be top level of code
 passportindex();
@@ -50,7 +53,6 @@ mongoose.connect(MONGO_URI,{
       console.error(err); 
       return new Error('DB error'); 
     }
-
     if(!user){
       const admin = new User({
         id:'admin',
@@ -65,9 +67,7 @@ mongoose.connect(MONGO_URI,{
     }else{
       console.log('admin is already initialized');
     }
-  })
-  
-
+  });
 });
 app.use(passport.initialize());
 app.use(passport.session());

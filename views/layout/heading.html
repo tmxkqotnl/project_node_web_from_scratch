@@ -1,0 +1,16 @@
+<div class="nav-heading">
+  <form action="/search" method="get" class="form-search">
+    <input type="text" name="text-search" id="text-search" />
+    <input type="submit" value="send" />
+  </form>
+  <em>NODEWEB</em>
+  <div class="tag">
+    <span><a href="/" id="home">홈</a></span>
+    {% if session.passport %}
+    <span><a href="/logout" id="logout">로그아웃</a></span>
+    <span><a href="/post" id="posting">포스팅</a></span>
+    {% else %}
+    <span><a href="/login" id="login">로그인</a></span>
+    {% endif %}
+  </div>
+</div>

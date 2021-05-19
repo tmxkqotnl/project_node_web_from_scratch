@@ -5,7 +5,9 @@
   <span class ="span-content">{{target.date.toDateString()}}</span>
   <hr class = "hr-content">
   <p class="p-content">
-    {{target.body}}
+    {{target.content}}
   </p>
+  {% if session.passport %}
   <span class="btn-delete"></span>
+  {% endif %}
 {% endblock %}

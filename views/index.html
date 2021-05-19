@@ -1,36 +1,11 @@
 <!DOCTYPE html>
-<!-- 프레임 잡히면 모듈화@@@@@@@@@@@@@@@ -->
 <html>
   <!-- Layout header -->
-  <head>
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{title}}</title>
-    <!-- LINK CSS -->
-    <link rel="stylesheet" href="style.css" />
-    <!-- SCRIPT JQUERY, CUSTOM JS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="script.js"></script>
-  </head>
+  {% include "layout/head.html" %}
   <body>
     <div class="container">
       <header>
-        <div class="nav-heading">
-          <form action="/search" method="get" class="form-search">
-            <input type="text" name="text-search" id="text-search" />
-            <input type="submit" value="send" />
-          </form>
-          <em>NODEWEB</em>
-          <div class="tag">
-            <span><a href="/" id="home">홈</a></span>
-            {% if session.passport %}
-            <span><a href="/logout" id="logout">로그아웃</a></span>
-            <span><a href="/post" id="posting">포스팅</a></span>
-            {% else %}
-            <span><a href="/login" id="login">로그인</a></span>
-            {% endif %}
-          </div>
-        </div>
+        {% include "layout/heading.html" %}
         <div class="profile">
           <div class="img-frame">
             <img src="img/impostor2.png" />
@@ -44,20 +19,20 @@
           </p>
         </div>
       </header>
+      {% if items %}
       <nav>
         <div class="navi">
           <ul>
-            <h3>여기에 리스트가 있음</h3>
-            {% if items %} {% for item in items %}
-            <a href="{{item.title}}"><li>{{item.title}}({{item.count}})</li></a>
-            {% endfor %} {% endif %}
-            <a href="/post"><li>POST</li></a>
+            <h3>태그별로</h3>
+             {% for item in items %}
+            <a href="/?tag={{item.name}}"><li>{{item.name}}({{item.num}})</li></a>
+            {% endfor %} 
           </ul>
         </div>
       </nav>
-
+      {% endif %}
       <div class="content">
-        {% if target or log or post %}
+        {% if target or post or login %}
           {% block content %} 
           {% endblock %} 
         {% else %}
@@ -65,11 +40,8 @@
         {% endif %}
       </div>
 
+      
     </div>
-    <footer>
-      <div class="made-by">
-        <span>made by - tmxkqotnl</span>
-      </div>
-    </footer>
+    {% include "layout/footer.html" %}
   </body>
 </html>

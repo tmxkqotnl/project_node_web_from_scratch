@@ -4,7 +4,7 @@ const Schema = mongoose.Schema({
     type:String,
     maxlength:60,
   },
-  body:{
+  content:{
     type:String,
   },
   date:Date,
